@@ -5,9 +5,9 @@
 #include "uart.h"
 #include "servomotor1.h"  // Custom header to control servo motor (via PWM)
 
-#define SW1 14 // EINT0 – open gate
-#define SW2 15 // EINT1 – close gate
-#define SW3 16 // EINT2 – collection
+#define SW1 14 // EINT0 â€“ open gate
+#define SW2 15 // EINT1 â€“ close gate
+#define SW3 16 // EINT2 â€“ collection
 #define IRQ_Sloten (1 << 5)
 
 #define EINT0_fn (1 << 0)      // P0.16 (bits 1:0) -> EINT0
@@ -255,15 +255,17 @@ void set_servo_angle_0() {
 
 
 /*
-Explanation for rfid based toll System
-* first check id is matching or Not
-* if match means i will ask to press sw1 to open the gate because of to invoke extint0 and to open the motot 
-* at the end of above function i asked to press sw2 to close the gate because of to invoke extint1  and to open the motor
-* at the end of above function i asked to press sw3 to because of to invoke extint1 and to see the total collection 
+First, I check whether the ID matches or not.
 
-*for rfid reader and tag i used uart connection
-*for pwm to motor I used pwm pin its not comes under any protocol its like one of output device
-*for switch i used interrupt concept
+    If it matches, I prompt the user to press SW1 to open the gate. This invokes EXTINT0 and activates the motor.
+
+    At the end of the above function, I prompt the user to press SW2 to close the gate. This also invokes EXTINT1 and runs the motor.
+
+    Finally, I prompt the user to press SW3 to invoke EXTINT1 and display the total collection.
+
+I used UART communication for the RFID reader and tag.
+I used a PWM pin (not part of any communication protocol) to control the motor as an output device.
+For the switches, I implemented the interrupt concept to handle inputs.
 
 
 
